@@ -68,3 +68,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para 
 
 Lucas Luiz Silva — [@lucasSilva2112](https://github.com/LucasSilva2112).
 
+#*Arquivo referente ao banco de dados utilizado esta na pasta Dump ( DUMP/DUMP.SQL )*#
+
