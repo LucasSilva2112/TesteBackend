@@ -1,4 +1,15 @@
 -- CreateTable
+CREATE TABLE `user` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `email` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(191) NOT NULL,
+    `companyId` INTEGER NOT NULL,
+
+    UNIQUE INDEX `user_email_key`(`email`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `brands` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(45) NOT NULL,
@@ -160,7 +171,9 @@ CREATE TABLE `variants` (
     `created_at` TIMESTAMP(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
     `updated_at` TIMESTAMP(0) NULL,
     `deleted_at` TIMESTAMP(0) NULL,
+    `erpId` VARCHAR(191) NOT NULL,
 
+    UNIQUE INDEX `variants_erpId_key`(`erpId`),
     INDEX `fk_variants_products`(`product_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

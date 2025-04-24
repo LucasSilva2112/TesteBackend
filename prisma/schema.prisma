@@ -7,6 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model user {
+  id        Int    @id @default(autoincrement())
+  email     String @unique
+  password  String
+  companyId Int
+}
+
 model brands {
   id                     Int        @id @default(autoincrement())
   name                   String     @db.VarChar(45)
@@ -86,7 +93,7 @@ model products {
   created_at            DateTime         @default(now()) @db.Timestamp(0)
   updated_at            DateTime?        @db.Timestamp(0)
   deleted_at            DateTime?        @db.Timestamp(0)
-  category_id           Int?              @db.UnsignedInt
+  category_id           Int?             @db.UnsignedInt
   subcategory_id        Int?             @db.UnsignedInt
   category_order        Int?             @default(0) @db.TinyInt
   composition_data      String?          @db.VarChar(255)
@@ -98,8 +105,8 @@ model products {
   is_visible            Boolean          @default(true)
   colection             String?          @db.VarChar(255)
   companyId             Int
-  brands                brands?           @relation(fields: [brand_id], references: [id], onDelete: Cascade, map: "fk_brands_company")
-  categories            categories?       @relation(fields: [category_id], references: [id], onDelete: Cascade, map: "fk_categories_products")
+  brands                brands           @relation(fields: [brand_id], references: [id], onDelete: Cascade, map: "fk_brands_company")
+  categories            categories?      @relation(fields: [category_id], references: [id], onDelete: Cascade, map: "fk_categories_products")
   subcategories         subcategories?   @relation(fields: [subcategory_id], references: [id], onDelete: Cascade, map: "fk_subcategories_products")
   company               companies        @relation("CompanyProducts", fields: [companyId], references: [id])
   variants              variants[]

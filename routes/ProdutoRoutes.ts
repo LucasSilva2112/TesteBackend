@@ -1,21 +1,18 @@
-import { Router } from 'express';
-import  ProdutoController  from '../controllers/ProdutoController';
+import { RequestHandler, Router }   from 'express';
+import   ProdutoController          from '../controllers/ProdutoController';
+import { LoggerMiddleware }         from '../middlewares/logger.middleware';
+import { authMiddleware }           from '../middlewares/auth.middleware';
 
 const produtoRoutes = Router();
 
-produtoRoutes.get    ('/produtos/excluidos', ProdutoController.ProdutosExcluidos        );
-produtoRoutes.get    ('/listar',             ProdutoController.listarProdutos           );
-produtoRoutes.post   ('/cadastro',           ProdutoController.criarProduto             );
-produtoRoutes.put    ('/atualizar/:id',      ProdutoController.atualizarProduto         );
-produtoRoutes.delete ('/excluir/:id',        ProdutoController.excluirProduto           );
-produtoRoutes.get    ('/produto/querys',     ProdutoController.buscarProdutosQuerys     );
-produtoRoutes.get    ('/tipos',              ProdutoController.getTipos                 );
-produtoRoutes.get    ('/entrega',            ProdutoController.getProntaEntrega         );
-produtoRoutes.get    ('/genero',             ProdutoController.getGeneros               );
-produtoRoutes.get    ('/marcas',             ProdutoController.getMarcas                );
-produtoRoutes.get    ('/subcategorias',      ProdutoController.getSubcategorias         );
-produtoRoutes.get    ('/categorias',         ProdutoController.getCategorias            );
-produtoRoutes.get    ('/contar',             ProdutoController.countProdutos            );
+produtoRoutes.get   ('/excluidos',          authMiddleware, LoggerMiddleware, ProdutoController.ProdutosExcluidos    as unknown as RequestHandler);
+produtoRoutes.get   ('/listar',             authMiddleware, LoggerMiddleware, ProdutoController.listarProdutos       as unknown as RequestHandler);
+produtoRoutes.post  ('/cadastro',               authMiddleware, LoggerMiddleware, ProdutoController.criarProduto         as unknown as RequestHandler);
+produtoRoutes.put   ('/atualizar/:id',          authMiddleware, LoggerMiddleware, ProdutoController.atualizarProduto     as unknown as RequestHandler);
+produtoRoutes.delete('/excluir/:id',            authMiddleware, LoggerMiddleware, ProdutoController.excluirProduto       as unknown as RequestHandler);
+produtoRoutes.get   ('/entrega/:id',            authMiddleware, LoggerMiddleware, ProdutoController.ProntaEntrega        as unknown as RequestHandler);
+produtoRoutes.get   ('/contar',                 authMiddleware, LoggerMiddleware, ProdutoController.countProdutos        as unknown as RequestHandler);
+produtoRoutes.get   ('/filtros',                authMiddleware, LoggerMiddleware, ProdutoController.buscarProdutosQuerys as unknown as RequestHandler);
 
 
 export default produtoRoutes;
